@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: studygo
+      POSTGRES_USER: studygo
+      POSTGRES_PASSWORD: supersecret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U studygo -d studygo"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  pgdata:
